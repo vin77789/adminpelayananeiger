@@ -1,1 +1,89 @@
-let products=read('eigerProducts');function save(){localStorage.setItem('eigerProducts',JSON.stringify(products))}function render(){count.textContent=products.length+' produk';productRows.innerHTML=products.map(p=>`<tr><td><div class="d-flex align-items-center gap-2"><img class="product-thumb" src="${safe(p.gambar)}" onerror="this.src='https://placehold.co/80x80?text=EIGER'"><div><b>${safe(p.nama)}</b><div class="small text-secondary">${safe(p.kategori)}</div></div></div></td><td>${rp(p.harga)}</td><td>${p.stok}</td><td><span class="badge ${p.diskon?'text-bg-danger':'text-bg-light'}">${p.diskon||0}%</span></td><td class="text-nowrap"><button class="btn btn-sm btn-outline-primary" onclick="edit(${p.id})">Edit</button> <button class="btn btn-sm btn-outline-danger" onclick="removeProduct(${p.id})">Hapus</button></td></tr>`).join('')||'<tr><td colspan="5" class="empty">Belum ada produk.</td></tr>'}function resetForm(){productForm.reset();editId.value='';diskon.value=0;saveBtn.textContent='Simpan Barang'}function edit(id){const p=products.find(x=>x.id===id);editId.value=p.id;nama.value=p.nama;kategori.value=p.kategori;harga.value=p.harga;stok.value=p.stok;diskon.value=p.diskon||0;gambar.value=p.gambar||'';deskripsi.value=p.deskripsi||'';saveBtn.textContent='Simpan Perubahan';window.scrollTo({top:0,behavior:'smooth'})}function removeProduct(id){if(confirm('Hapus produk ini?')){products=products.filter(p=>p.id!==id);save();render()}}productForm.addEventListener('submit',e=>{e.preventDefault();const id=editId.value?Number(editId.value):Date.now(),item={id,nama:nama.value.trim(),kategori:kategori.value,harga:Number(harga.value),stok:Number(stok.value),diskon:Number(diskon.value)||0,gambar:gambar.value.trim()||'https://placehold.co/600x400?text=EIGER',deskripsi:deskripsi.value.trim()};if(item.diskon<0||item.diskon>100){alert('Diskon harus 0-100%.');return}const i=products.findIndex(x=>x.id===id);if(i>=0)products[i]=item;else products.push(item);save();resetForm();render();alert('Produk berhasil disimpan dan diperbarui di etalase customer.')});render();
+import { db } from './firebase.js';
+import { uploadGambar } from './cloudinary.js';
+import { collection, addDoc, getDocs, deleteDoc, doc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+const productRows = document.getElementById('productRows');
+const countBadge = document.getElementById('count');
+
+// 1. Fungsi Nampilin Data dari Firestore
+async function tampilkanProduk() {
+    productRows.innerHTML = '<tr><td colspan="5" class="text-center">Memuat data...</td></tr>';
+    
+    try {
+        const snapshot = await getDocs(collection(db, "products"));
+        const products = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+        
+        if (countBadge) countBadge.textContent = `${products.length} Produk`;
+
+        productRows.innerHTML = products.map(p => `
+            <tr>
+                <td>
+                    <img src="${p.image_url}" width="50" height="50" style="object-fit:cover; border-radius:5px;">
+                    <span class="ms-2">${p.nama}</span>
+                </td>
+                <td>${p.kategori}</td>
+                <td>Rp ${Number(p.harga).toLocaleString('id-ID')}</td>
+                <td>${p.stok}</td>
+                <td>
+                    <button class="btn btn-sm btn-danger" onclick="hapusProduk('${p.id}')">Hapus</button>
+                </td>
+            </tr>
+        `).join('');
+    } catch (error) {
+        console.error(error);
+        productRows.innerHTML = '<tr><td colspan="5" class="text-center text-danger">Gagal memuat data.</td></tr>';
+    }
+}
+
+// 2. Fungsi Simpan Barang Baru
+const form = document.getElementById('productForm');
+if(form) {
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        const fileFoto = document.getElementById('foto').files[0];
+        const btnSimpan = document.getElementById('saveProduct');
+        
+        if (!fileFoto) {
+            alert("Pilih foto produk dulu!");
+            return;
+        }
+
+        btnSimpan.textContent = "Mengunggah...";
+        btnSimpan.disabled = true;
+
+        try {
+            const imageUrl = await uploadGambar(fileFoto);
+
+            await addDoc(collection(db, "products"), {
+                nama: document.getElementById('namaBarang').value,
+                kategori: document.getElementById('kategori').value,
+                harga: Number(document.getElementById('harga').value),
+                stok: Number(document.getElementById('stok').value),
+                image_url: imageUrl,
+                diskon: 0
+            });
+
+            alert("Barang berhasil ditambahkan!");
+            form.reset();
+            tampilkanProduk();
+
+        } catch (error) {
+            alert("Gagal menyimpan barang: " + error.message);
+        } finally {
+            btnSimpan.textContent = "SIMPAN BARANG";
+            btnSimpan.disabled = false;
+        }
+    });
+}
+
+// 3. Fungsi Hapus Barang
+window.hapusProduk = async (id) => {
+    if (confirm("Yakin mau hapus barang ini?")) {
+        await deleteDoc(doc(db, "products", id));
+        tampilkanProduk();
+    }
+};
+
+// Panggil pertama kali
+tampilkanProduk();
