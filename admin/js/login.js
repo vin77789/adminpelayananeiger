@@ -1,0 +1,1 @@
+document.getElementById("adminLogin").addEventListener("submit",e=>{e.preventDefault();const u=document.getElementById("username").value.trim(),p=document.getElementById("password").value; if(u==="admin"&&p==="admin123"){localStorage.setItem("eigerAdminLogin","true");location.href="dashboard.html";}else document.getElementById("error").classList.remove("d-none");});

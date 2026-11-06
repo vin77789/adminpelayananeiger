@@ -1,0 +1,20 @@
+WEBSITE ADMIN EIGER - TERINTEGRASI DENGAN WEBSITE CUSTOMER ASLI
+
+Login admin: admin
+Password: admin123
+
+Cara menjalankan:
+1. Ekstrak ZIP ini.
+2. Buka folder customer eiger di VS Code.
+3. Jalankan folder ini melalui Live Server.
+4. Login customer lewat index.html, atau admin lewat admin/index.html.
+5. Keduanya harus memakai host dan port yang sama (misalnya http://127.0.0.1:5500) agar localStorage terbagi.
+
+Perubahan pada versi ini:
+- Desain, halaman, dan alur customer asli dipertahankan.
+- Link Masuk sebagai Admin ditambahkan di halaman login.
+- Admin membaca key transaksi customerTransaksi dan retur customerRetur sesuai struktur data asli.
+- Admin mengelola katalog eigerProducts; etalase customer membaca katalog tersebut.
+- Harga diskon ditampilkan pada etalase dan digunakan saat checkout.
+
+Catatan: localStorage hanya untuk prototipe pada browser/origin yang sama. Untuk sinkronisasi online antar perangkat perlu Firebase/Firestore atau backend.
