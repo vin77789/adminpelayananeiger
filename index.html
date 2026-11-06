@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -11,199 +10,34 @@
 
     <style>
         * { box-sizing: border-box; }
-
-        body {
-            margin: 0;
-            background: #f4f6f4;
-            font-family: Arial, sans-serif;
-            color: #26352c;
-        }
-
-        .sidebar {
-            width: 250px;
-            height: 100vh;
-            position: fixed;
-            background: #173d2b;
-            color: white;
-            padding: 25px 15px;
-        }
-
-        .brand {
-            font-size: 25px;
-            font-weight: bold;
-            text-align: center;
-            margin-bottom: 35px;
-            letter-spacing: 2px;
-        }
-
+        body { margin: 0; background: #f4f6f4; font-family: Arial, sans-serif; color: #26352c; }
+        .sidebar { width: 250px; height: 100vh; position: fixed; background: #173d2b; color: white; padding: 25px 15px; }
+        .brand { font-size: 25px; font-weight: bold; text-align: center; margin-bottom: 35px; letter-spacing: 2px; }
         .brand span { color: #c9dc42; }
-
-        .nav-link {
-            color: #dce7df;
-            padding: 13px 15px;
-            margin-bottom: 7px;
-            border-radius: 8px;
-            cursor: pointer;
-        }
-
-        .nav-link:hover,
-        .nav-link.active {
-            background: #315b40;
-            color: white;
-        }
-
-        .main {
-            margin-left: 250px;
-            padding: 30px;
-        }
-
-        .topbar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 30px;
-        }
-
-        .topbar h3 {
-            font-weight: bold;
-        }
-
-        .card-box {
-            background: white;
-            padding: 22px;
-            border-radius: 13px;
-            border: 1px solid #e9eee9;
-            box-shadow: 0 3px 12px #00000008;
-            height: 100%;
-        }
-
-        .card-box h6 {
-            color: #7b8980;
-            font-size: 14px;
-        }
-
-        .card-box h3 {
-            font-weight: bold;
-            margin-top: 12px;
-        }
-
-        .icon-box {
-            width: 43px;
-            height: 43px;
-            border-radius: 10px;
-            background: #eaf1e9;
-            display: grid;
-            place-items: center;
-            font-size: 22px;
-        }
-
+        .nav-link { color: #dce7df; padding: 13px 15px; margin-bottom: 7px; border-radius: 8px; cursor: pointer; }
+        .nav-link:hover, .nav-link.active { background: #315b40; color: white; }
+        .main { margin-left: 250px; padding: 30px; }
+        .topbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; }
+        .topbar h3 { font-weight: bold; }
+        .card-box { background: white; padding: 22px; border-radius: 13px; border: 1px solid #e9eee9; box-shadow: 0 3px 12px #00000008; height: 100%; }
+        .card-box h6 { color: #7b8980; font-size: 14px; }
+        .card-box h3 { font-weight: bold; margin-top: 12px; }
+        .icon-box { width: 43px; height: 43px; border-radius: 10px; background: #eaf1e9; display: grid; place-items: center; font-size: 22px; }
         .content-section { display: none; }
         .content-section.active { display: block; }
-
-        .panel {
-            background: white;
-            padding: 22px;
-            border-radius: 13px;
-            border: 1px solid #e9eee9;
-        }
-
-        .panel h5 {
-            font-weight: bold;
-            margin-bottom: 20px;
-        }
-
-        .table th {
-            color: #66766c;
-            font-size: 13px;
-            white-space: nowrap;
-        }
-
-        .table td {
-            vertical-align: middle;
-            font-size: 14px;
-        }
-
-        .btn-green {
-            background: #24583b;
-            color: white;
-            border: none;
-        }
-
-        .btn-green:hover {
-            background: #173d2b;
-            color: white;
-        }
-
-        .form-control, .form-select {
-            padding: 10px;
-            border-radius: 8px;
-        }
-
-        .product-img {
-            width: 45px;
-            height: 45px;
-            object-fit: cover;
-            border-radius: 7px;
-        }
-
-        #loginPage {
-            position: fixed;
-            inset: 0;
-            background: linear-gradient(135deg,#173d2b,#527657);
-            z-index: 1000;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .login-card {
-            background: white;
-            width: 380px;
-            max-width: 92%;
-            padding: 35px;
-            border-radius: 16px;
-        }
-
-        .login-logo {
-            text-align: center;
-            font-size: 30px;
-            font-weight: bold;
-            color: #173d2b;
-            margin-bottom: 25px;
-        }
-
-        .chart-container {
-            height: 300px;
-        }
-
-        @media(max-width: 768px) {
-            .sidebar {
-                width: 70px;
-                padding: 15px 8px;
-            }
-
-            .brand {
-                font-size: 0;
-            }
-
-            .brand:first-letter {
-                font-size: 25px;
-            }
-
-            .nav-link {
-                text-align: center;
-                font-size: 0;
-            }
-
-            .nav-link::first-letter {
-                font-size: 20px;
-            }
-
-            .main {
-                margin-left: 70px;
-                padding: 15px;
-            }
-        }
+        .panel { background: white; padding: 22px; border-radius: 13px; border: 1px solid #e9eee9; }
+        .panel h5 { font-weight: bold; margin-bottom: 20px; }
+        .table th { color: #66766c; font-size: 13px; white-space: nowrap; }
+        .table td { vertical-align: middle; font-size: 14px; }
+        .btn-green { background: #24583b; color: white; border: none; }
+        .btn-green:hover { background: #173d2b; color: white; }
+        .form-control, .form-select { padding: 10px; border-radius: 8px; }
+        .product-img { width: 45px; height: 45px; object-fit: cover; border-radius: 7px; }
+        #loginPage { position: fixed; inset: 0; background: linear-gradient(135deg,#173d2b,#527657); z-index: 1000; display: flex; align-items: center; justify-content: center; }
+        .login-card { background: white; width: 380px; max-width: 92%; padding: 35px; border-radius: 16px; }
+        .login-logo { text-align: center; font-size: 30px; font-weight: bold; color: #173d2b; margin-bottom: 25px; }
+        .chart-container { height: 300px; }
+        @media(max-width: 768px) { .sidebar { width: 70px; padding: 15px 8px; } .brand { font-size: 0; } .brand:first-letter { font-size: 25px; } .nav-link { text-align: center; font-size: 0; } .nav-link::first-letter { font-size: 20px; } .main { margin-left: 70px; padding: 15px; } }
     </style>
 </head>
 
@@ -213,81 +47,47 @@
 <div id="loginPage">
     <div class="login-card">
         <div class="login-logo">EIGER ADMIN</div>
-
         <h5 class="text-center mb-4">Login Administrator</h5>
-
         <form id="loginForm">
             <div class="mb-3">
                 <label class="form-label">Username</label>
                 <input type="text" id="username" class="form-control" required>
             </div>
-
             <div class="mb-3">
                 <label class="form-label">Password</label>
                 <input type="password" id="password" class="form-control" required>
             </div>
-
-            <button class="btn btn-green w-100 py-2">
-                LOGIN
-            </button>
+            <button class="btn btn-green w-100 py-2">LOGIN</button>
         </form>
-
-        <p class="text-center text-secondary small mt-3">
-            Sistem Informasi Manajemen EIGER
-        </p>
+        <p class="text-center text-secondary small mt-3">Sistem Informasi Manajemen EIGER</p>
     </div>
 </div>
 
 <!-- SIDEBAR -->
 <aside class="sidebar">
     <div class="brand">EIGER<span>.</span></div>
-
-    <div class="nav-link active" onclick="showPage('dashboard',this)">
-        ▦ Dashboard
-    </div>
-
-    <div class="nav-link" onclick="showPage('transaksi',this)">
-        🧾 Status Transaksi
-    </div>
-
-    <div class="nav-link" onclick="showPage('retur',this)">
-        ↩ Status Retur
-    </div>
-
-    <div class="nav-link" onclick="showPage('barang',this)">
-        🎒 Data Barang
-    </div>
-
-    <div class="nav-link" onclick="showPage('diskon',this)">
-        🏷 Diskon Produk
-    </div>
-
+    <div class="nav-link active" onclick="showPage('dashboard',this)">▦ Dashboard</div>
+    <div class="nav-link" onclick="showPage('transaksi',this)">🧾 Status Transaksi</div>
+    <div class="nav-link" onclick="showPage('retur',this)">↩ Status Retur</div>
+    <div class="nav-link" onclick="showPage('barang',this)">🎒 Data Barang</div>
+    <div class="nav-link" onclick="showPage('diskon',this)">🏷 Diskon Produk</div>
     <hr>
-
-    <div class="nav-link" onclick="logout()">
-        ⇥ Logout
-    </div>
+    <div class="nav-link" onclick="logout()">⇥ Logout</div>
 </aside>
 
 <!-- MAIN -->
 <main class="main">
-
     <div class="topbar">
         <div>
             <small class="text-secondary">EIGER MANAGEMENT SYSTEM</small>
             <h3 id="pageTitle">Dashboard Admin</h3>
         </div>
-
-        <div>
-            <span class="badge bg-success p-2">Administrator</span>
-        </div>
+        <div><span class="badge bg-success p-2">Administrator</span></div>
     </div>
 
     <!-- DASHBOARD -->
     <section id="dashboard" class="content-section active">
-
         <div class="row g-3 mb-4">
-
             <div class="col-md-3 col-6">
                 <div class="card-box">
                     <div class="icon-box">💰</div>
@@ -295,7 +95,6 @@
                     <h3 id="totalPenjualan">Rp0</h3>
                 </div>
             </div>
-
             <div class="col-md-3 col-6">
                 <div class="card-box">
                     <div class="icon-box">🧾</div>
@@ -303,7 +102,6 @@
                     <h3 id="totalTransaksi">0</h3>
                 </div>
             </div>
-
             <div class="col-md-3 col-6">
                 <div class="card-box">
                     <div class="icon-box">↩</div>
@@ -311,7 +109,6 @@
                     <h3 id="totalRetur">0</h3>
                 </div>
             </div>
-
             <div class="col-md-3 col-6">
                 <div class="card-box">
                     <div class="icon-box">🎒</div>
@@ -319,241 +116,151 @@
                     <h3 id="totalBarang">0</h3>
                 </div>
             </div>
-
         </div>
-
         <div class="row g-3">
-
             <div class="col-lg-8">
                 <div class="panel">
                     <h5>Statistik Penjualan</h5>
-                    <div class="chart-container">
-                        <canvas id="salesChart"></canvas>
-                    </div>
+                    <div class="chart-container"><canvas id="salesChart"></canvas></div>
                 </div>
             </div>
-
             <div class="col-lg-4">
                 <div class="panel">
                     <h5>Status Transaksi</h5>
-
-                    <p class="d-flex justify-content-between">
-                        Menunggu Pembayaran
-                        <b id="pendingCount">0</b>
-                    </p>
-
+                    <p class="d-flex justify-content-between">Menunggu Pembayaran <b id="pendingCount">0</b></p>
                     <hr>
-
-                    <p class="d-flex justify-content-between">
-                        Diproses
-                        <b id="processingCount">0</b>
-                    </p>
-
+                    <p class="d-flex justify-content-between">Diproses <b id="processingCount">0</b></p>
                     <hr>
-
-                    <p class="d-flex justify-content-between">
-                        Selesai
-                        <b id="completedCount">0</b>
-                    </p>
+                    <p class="d-flex justify-content-between">Selesai <b id="completedCount">0</b></p>
                 </div>
             </div>
-
         </div>
-
     </section>
 
     <!-- TRANSAKSI -->
     <section id="transaksi" class="content-section">
         <div class="panel">
-
             <h5>Manajemen Status Transaksi</h5>
-
             <div class="table-responsive">
                 <table class="table table-hover">
                     <thead>
-                        <tr>
-                            <th>ID Transaksi</th>
-                            <th>Customer</th>
-                            <th>Tanggal</th>
-                            <th>Total</th>
-                            <th>Status</th>
-                            <th>Aksi</th>
-                        </tr>
+                        <tr><th>ID Transaksi</th><th>Customer</th><th>Tanggal</th><th>Total</th><th>Status</th><th>Aksi</th></tr>
                     </thead>
-
                     <tbody id="transactionTable"></tbody>
                 </table>
             </div>
-
-            <button class="btn btn-green" onclick="addDemoTransaction()">
-                + Tambah Data Contoh
-            </button>
         </div>
     </section>
 
     <!-- RETUR -->
     <section id="retur" class="content-section">
         <div class="panel">
-
             <h5>Manajemen Status Retur</h5>
-
             <div class="table-responsive">
                 <table class="table">
                     <thead>
-                        <tr>
-                            <th>ID Retur</th>
-                            <th>Customer</th>
-                            <th>Barang</th>
-                            <th>Alasan</th>
-                            <th>Status</th>
-                            <th>Aksi</th>
-                        </tr>
+                        <tr><th>ID Retur</th><th>Customer</th><th>Barang</th><th>Alasan</th><th>Status</th><th>Aksi</th></tr>
                     </thead>
-
                     <tbody id="returnTable"></tbody>
                 </table>
             </div>
-
-            <button class="btn btn-green" onclick="addDemoReturn()">
-                + Tambah Data Contoh
-            </button>
         </div>
     </section>
 
     <!-- BARANG -->
     <section id="barang" class="content-section">
-
         <div class="row g-3">
-
             <div class="col-lg-4">
                 <div class="panel">
-
                     <h5>Tambah Barang</h5>
-
                     <form id="productForm">
-
+                        <!-- Input hidden untuk handle edit nanti -->
                         <input type="hidden" id="editId">
-
+                        
                         <div class="mb-3">
                             <label class="form-label">Nama Barang</label>
                             <input id="namaBarang" class="form-control" required>
                         </div>
-
                         <div class="mb-3">
                             <label class="form-label">Kategori</label>
                             <select id="kategori" class="form-select">
-                                <option>Tas</option>
-                                <option>Jaket</option>
-                                <option>Sepatu</option>
-                                <option>Jam</option>
-                                <option>Aksesoris</option>
-                                <option>Peralatan Outdoor</option>
+                                <option>Tas</option><option>Jaket</option><option>Sepatu</option><option>Jam</option><option>Aksesoris</option><option>Peralatan Outdoor</option>
                             </select>
                         </div>
-
                         <div class="mb-3">
                             <label class="form-label">Harga</label>
                             <input type="number" id="harga" class="form-control" min="0" required>
                         </div>
-
                         <div class="mb-3">
                             <label class="form-label">Stok</label>
                             <input type="number" id="stok" class="form-control" min="0" required>
                         </div>
-
+                        
+                        <!-- INPUT FILE FOTO (Bukan URL lagi) -->
                         <div class="mb-3">
-                            <label class="form-label">URL Foto</label>
-                            <input type="url" id="foto" class="form-control" placeholder="https://...">
+                            <label class="form-label">Foto Produk</label>
+                            <input type="file" id="foto" accept="image/*" class="form-control" required>
                         </div>
-
-                        <button class="btn btn-green w-100" id="saveProduct">
-                            SIMPAN BARANG
-                        </button>
-
-                        <button type="button" class="btn btn-light w-100 mt-2" onclick="resetProductForm()">
-                            BATAL
-                        </button>
-
+                        
+                        <button class="btn btn-green w-100" id="saveProduct">SIMPAN BARANG</button>
+                        <button type="button" class="btn btn-light w-100 mt-2" onclick="resetProductForm()">BATAL</button>
                     </form>
                 </div>
             </div>
-
             <div class="col-lg-8">
                 <div class="panel">
-
                     <h5>Daftar Barang</h5>
-
                     <div class="table-responsive">
                         <table class="table">
                             <thead>
-                                <tr>
-                                    <th>Nama Barang</th>
-                                    <th>Harga</th>
-                                    <th>Stok</th>
-                                    <th>Diskon</th>
-                                    <th>Aksi</th>
-                                </tr>
+                                <tr><th>Nama Barang</th><th>Harga</th><th>Stok</th><th>Diskon</th><th>Aksi</th></tr>
                             </thead>
-
                             <tbody id="productTable"></tbody>
                         </table>
                     </div>
-
                 </div>
             </div>
-
         </div>
     </section>
 
     <!-- DISKON -->
     <section id="diskon" class="content-section">
-
         <div class="panel">
-
             <h5>Pengaturan Diskon Produk</h5>
-
-            <p class="text-secondary small">
-                Tentukan diskon untuk setiap barang yang tersedia.
-            </p>
-
+            <p class="text-secondary small">Tentukan diskon untuk setiap barang yang tersedia.</p>
             <div class="table-responsive">
                 <table class="table">
                     <thead>
-                        <tr>
-                            <th>Nama Barang</th>
-                            <th>Harga Awal</th>
-                            <th>Diskon (%)</th>
-                            <th>Harga Setelah Diskon</th>
-                            <th>Aksi</th>
-                        </tr>
+                        <tr><th>Nama Barang</th><th>Harga Awal</th><th>Diskon (%)</th><th>Harga Setelah Diskon</th><th>Aksi</th></tr>
                     </thead>
-
                     <tbody id="discountTable"></tbody>
                 </table>
             </div>
-
         </div>
     </section>
-
 </main>
 
-<script>
-    // LOGIN
-    const loginPage = document.getElementById("loginPage");
+<!-- ==========================================
+     SCRIPT UTAMA (LOGIN, NAVIGASI, FIREBASE)
+     ========================================== -->
+<script type="module">
+    // 1. IMPORT FIREBASE & CLOUDINARY
+    import { db } from './js/firebase.js';
+    import { uploadGambar } from './js/cloudinary.js';
+    import { collection, addDoc, getDocs, deleteDoc, doc, updateDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
-    if (sessionStorage.getItem("adminLogin") === "true") {
-        loginPage.style.display = "none";
-    }
+    // 2. LOGIKA LOGIN & NAVIGASI
+    const loginPage = document.getElementById("loginPage");
+    if (sessionStorage.getItem("adminLogin") === "true") loginPage.style.display = "none";
 
     document.getElementById("loginForm").addEventListener("submit", function(e) {
         e.preventDefault();
-
         const user = document.getElementById("username").value;
         const pass = document.getElementById("password").value;
-
         if (user === "admin" && pass === "admin123") {
             sessionStorage.setItem("adminLogin", "true");
             loginPage.style.display = "none";
+            loadAllData(); // Load data setelah login
         } else {
             alert("Username atau password salah!");
         }
@@ -564,390 +271,163 @@
         location.reload();
     }
 
-    // NAVIGASI
-    function showPage(page, element) {
-        document.querySelectorAll(".content-section").forEach(s => {
-            s.classList.remove("active");
-        });
-
+    window.showPage = function(page, element) {
+        document.querySelectorAll(".content-section").forEach(s => s.classList.remove("active"));
         document.getElementById(page).classList.add("active");
-
-        document.querySelectorAll(".nav-link").forEach(link => {
-            link.classList.remove("active");
-        });
-
+        document.querySelectorAll(".nav-link").forEach(link => link.classList.remove("active"));
         element.classList.add("active");
-
-        const titles = {
-            dashboard: "Dashboard Admin",
-            transaksi: "Status Transaksi",
-            retur: "Status Retur",
-            barang: "Data Barang",
-            diskon: "Diskon Produk"
-        };
-
+        const titles = { dashboard: "Dashboard Admin", transaksi: "Status Transaksi", retur: "Status Retur", barang: "Data Barang", diskon: "Diskon Produk" };
         document.getElementById("pageTitle").textContent = titles[page];
-    }
+    };
 
-    // DATABASE LOCAL STORAGE
-    let products = JSON.parse(localStorage.getItem("adminProducts")) || [];
-    let transactions = JSON.parse(localStorage.getItem("adminTransactions")) || [];
-    let returns = JSON.parse(localStorage.getItem("adminReturns")) || [];
-
-    function saveData() {
-        localStorage.setItem("adminProducts", JSON.stringify(products));
-        localStorage.setItem("adminTransactions", JSON.stringify(transactions));
-        localStorage.setItem("adminReturns", JSON.stringify(returns));
-    }
-
+    // 3. FORMAT RUPIAH
     function rupiah(value) {
-        return new Intl.NumberFormat("id-ID", {
-            style: "currency",
-            currency: "IDR",
-            maximumFractionDigits: 0
-        }).format(value || 0);
+        return new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR", maximumFractionDigits: 0 }).format(value || 0);
     }
 
-    // BARANG
-    document.getElementById("productForm").addEventListener("submit", function(e) {
+    // 4. FUNGSI TAMBAH BARANG (Upload Cloudinary + Simpan Firestore)
+    document.getElementById("productForm").addEventListener("submit", async function(e) {
         e.preventDefault();
+        const file = document.getElementById("foto").files[0];
+        const btn = document.getElementById("saveProduct");
+        
+        if (!file) { alert("Pilih foto dulu!"); return; }
+        btn.textContent = "Mengunggah...";
+        btn.disabled = true;
 
-        const id = document.getElementById("editId").value;
-
-        const product = {
-            id: id ? Number(id) : Date.now(),
-            nama: document.getElementById("namaBarang").value,
-            kategori: document.getElementById("kategori").value,
-            harga: Number(document.getElementById("harga").value),
-            stok: Number(document.getElementById("stok").value),
-            foto: document.getElementById("foto").value,
-            diskon: 0
-        };
-
-        if (id) {
-            const old = products.find(p => p.id === Number(id));
-            product.diskon = old ? old.diskon : 0;
-            products = products.map(p => p.id === Number(id) ? product : p);
-        } else {
-            products.push(product);
+        try {
+            const imageUrl = await uploadGambar(file);
+            await addDoc(collection(db, "products"), {
+                nama: document.getElementById("namaBarang").value,
+                kategori: document.getElementById("kategori").value,
+                harga: Number(document.getElementById("harga").value),
+                stok: Number(document.getElementById("stok").value),
+                image_url: imageUrl,
+                diskon: 0
+            });
+            alert("Barang berhasil ditambahkan!");
+            resetProductForm();
+            loadAllData();
+        } catch (error) {
+            alert("Gagal: " + error.message);
+        } finally {
+            btn.textContent = "SIMPAN BARANG";
+            btn.disabled = false;
         }
-
-        saveData();
-        resetProductForm();
-        renderAll();
-
-        alert("Barang berhasil disimpan!");
     });
 
-    function editProduct(id) {
-        const p = products.find(x => x.id === id);
-
-        document.getElementById("editId").value = p.id;
-        document.getElementById("namaBarang").value = p.nama;
-        document.getElementById("kategori").value = p.kategori;
-        document.getElementById("harga").value = p.harga;
-        document.getElementById("stok").value = p.stok;
-        document.getElementById("foto").value = p.foto;
-
-        document.getElementById("saveProduct").textContent = "SIMPAN PERUBAHAN";
-    }
-
-    function deleteProduct(id) {
-        if (confirm("Yakin ingin menghapus barang?")) {
-            products = products.filter(p => p.id !== id);
-            saveData();
-            renderAll();
-        }
-    }
-
-    function resetProductForm() {
+    window.resetProductForm = function() {
         document.getElementById("productForm").reset();
         document.getElementById("editId").value = "";
-        document.getElementById("saveProduct").textContent = "SIMPAN BARANG";
-    }
+    };
 
-    function renderProducts() {
-        document.getElementById("productTable").innerHTML = products.map(p => `
-            <tr>
-                <td>
-                    <img class="product-img" src="${escapeHTML(p.foto || '')}"
-                         onerror="this.style.display='none'">
-                    ${escapeHTML(p.nama)}
-                </td>
-                <td>${rupiah(p.harga)}</td>
-                <td>${p.stok}</td>
-                <td>${p.diskon || 0}%</td>
-                <td>
-                    <button class="btn btn-sm btn-warning" onclick="editProduct(${p.id})">Edit</button>
-                    <button class="btn btn-sm btn-danger" onclick="deleteProduct(${p.id})">Hapus</button>
-                </td>
-            </tr>
-        `).join("") || `<tr><td colspan="5" class="text-center">Belum ada barang</td></tr>`;
-
-        document.getElementById("totalBarang").textContent = products.length;
-    }
-
-    // DISKON
-    function renderDiscounts() {
-        document.getElementById("discountTable").innerHTML = products.map(p => {
-            const hargaDiskon = p.harga * (100 - (p.diskon || 0)) / 100;
-
-            return `
-                <tr>
-                    <td>${escapeHTML(p.nama)}</td>
-                    <td>${rupiah(p.harga)}</td>
-                    <td>
-                        <input type="number" class="form-control"
-                            style="width:90px"
-                            min="0" max="100"
-                            id="discount-${p.id}"
-                            value="${p.diskon || 0}">
-                    </td>
-                    <td>${rupiah(hargaDiskon)}</td>
-                    <td>
-                        <button class="btn btn-sm btn-green"
-                            onclick="saveDiscount(${p.id})">
-                            Simpan
-                        </button>
-                    </td>
-                </tr>
-            `;
-        }).join("") || `<tr><td colspan="5" class="text-center">Belum ada barang</td></tr>`;
-    }
-
-    function saveDiscount(id) {
-        const input = document.getElementById("discount-" + id);
-        const value = Number(input.value);
-
-        if (!Number.isFinite(value) || value < 0 || value > 100) {
-            alert("Diskon harus antara 0 sampai 100 persen.");
-            return;
+    window.hapusProduk = async function(id) {
+        if (confirm("Hapus barang ini?")) {
+            await deleteDoc(doc(db, "products", id));
+            loadAllData();
         }
+    };
 
-        products = products.map(p =>
-            p.id === id ? {...p, diskon: value} : p
-        );
+    window.simpanDiskon = async function(id) {
+        const val = Number(document.getElementById("discount-" + id).value);
+        if(val < 0 || val > 100) { alert("Diskon 0-100%"); return; }
+        await updateDoc(doc(db, "products", id), { diskon: val });
+        alert("Diskon diperbarui!");
+        loadAllData();
+    };
 
-        saveData();
-        renderAll();
-        alert("Diskon berhasil diperbarui!");
-    }
+    // 5. LOAD SEMUA DATA DARI FIRESTORE
+    async function loadAllData() {
+        try {
+            // Load Produk
+            const prodSnapshot = await getDocs(collection(db, "products"));
+            const products = prodSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
 
-    // TRANSAKSI
-    function addDemoTransaction() {
-        const id = "TRX-" + Date.now();
-
-        transactions.push({
-            id,
-            customer: "Customer Demo",
-            tanggal: new Date().toLocaleDateString("id-ID"),
-            total: 500000,
-            status: "Menunggu Pembayaran"
-        });
-
-        saveData();
-        renderAll();
-    }
-
-    function updateTransaction(id, status) {
-        transactions = transactions.map(t =>
-            t.id === id ? {...t, status} : t
-        );
-
-        saveData();
-        renderAll();
-    }
-
-    function renderTransactions() {
-        const statuses = [
-            "Menunggu Pembayaran",
-            "Diproses",
-            "Dikirim",
-            "Selesai",
-            "Dibatalkan"
-        ];
-
-        document.getElementById("transactionTable").innerHTML =
-            transactions.map(t => `
+            // Render Tabel Produk
+            document.getElementById("productTable").innerHTML = products.map(p => `
                 <tr>
-                    <td>${escapeHTML(t.id)}</td>
-                    <td>${escapeHTML(t.customer)}</td>
-                    <td>${escapeHTML(t.tanggal)}</td>
+                    <td><img class="product-img" src="${p.image_url}" onerror="this.style.display='none'"> ${p.nama}</td>
+                    <td>${rupiah(p.harga)}</td>
+                    <td>${p.stok}</td>
+                    <td>${p.diskon || 0}%</td>
+                    <td><button class="btn btn-sm btn-danger" onclick="hapusProduk('${p.id}')">Hapus</button></td>
+                </tr>
+            `).join("") || `<tr><td colspan="5" class="text-center">Belum ada barang</td></tr>`;
+            document.getElementById("totalBarang").textContent = products.length;
+
+            // Render Tabel Diskon
+            document.getElementById("discountTable").innerHTML = products.map(p => `
+                <tr>
+                    <td>${p.nama}</td>
+                    <td>${rupiah(p.harga)}</td>
+                    <td><input type="number" id="discount-${p.id}" value="${p.diskon || 0}" class="form-control" style="width:80px"></td>
+                    <td>${rupiah(p.harga * (100 - (p.diskon || 0)) / 100)}</td>
+                    <td><button class="btn btn-sm btn-green" onclick="simpanDiskon('${p.id}')">Simpan</button></td>
+                </tr>
+            `).join("");
+
+            // Load Transaksi
+            const trxSnapshot = await getDocs(collection(db, "transactions"));
+            const trx = trxSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+            document.getElementById("transactionTable").innerHTML = trx.map(t => `
+                <tr>
+                    <td>${t.id.substring(0,6)}</td>
+                    <td>${t.customer || '-'}</td>
+                    <td>${t.tanggal || '-'}</td>
                     <td>${rupiah(t.total)}</td>
                     <td>
-                        <select class="form-select"
-                            onchange="updateTransaction('${t.id}',this.value)">
-                            ${statuses.map(s => `
-                                <option ${t.status === s ? "selected" : ""}>${s}</option>
-                            `).join("")}
+                        <select class="form-select" onchange="ubahStatusTrx('${t.id}', this.value)">
+                            <option value="Menunggu Pembayaran" ${t.status==='Menunggu Pembayaran'?'selected':''}>Menunggu Pembayaran</option>
+                            <option value="Diproses" ${t.status==='Diproses'?'selected':''}>Diproses</option>
+                            <option value="Selesai" ${t.status==='Selesai'?'selected':''}>Selesai</option>
                         </select>
                     </td>
-                    <td>
-                        <button class="btn btn-sm btn-danger"
-                            onclick="deleteTransaction('${t.id}')">
-                            Hapus
-                        </button>
-                    </td>
                 </tr>
-            `).join("") || `<tr><td colspan="6" class="text-center">Belum ada transaksi</td></tr>`;
-    }
+            `).join("") || `<tr><td colspan="5" class="text-center">Belum ada transaksi</td></tr>`;
 
-    function deleteTransaction(id) {
-        if (confirm("Hapus transaksi ini?")) {
-            transactions = transactions.filter(t => t.id !== id);
-            saveData();
-            renderAll();
-        }
-    }
-
-    // RETUR
-    function addDemoReturn() {
-        returns.push({
-            id: "RET-" + Date.now(),
-            customer: "Customer Demo",
-            barang: "Tas EIGER",
-            alasan: "Barang tidak sesuai",
-            status: "Menunggu Pemeriksaan"
-        });
-
-        saveData();
-        renderAll();
-    }
-
-    function updateReturn(id, status) {
-        returns = returns.map(r =>
-            r.id === id ? {...r, status} : r
-        );
-
-        saveData();
-        renderAll();
-    }
-
-    function renderReturns() {
-        const statuses = [
-            "Menunggu Pemeriksaan",
-            "Sedang Diproses",
-            "Disetujui",
-            "Ditolak",
-            "Selesai"
-        ];
-
-        document.getElementById("returnTable").innerHTML =
-            returns.map(r => `
+            // Load Retur
+            const returSnapshot = await getDocs(collection(db, "retur"));
+            const retur = returSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+            document.getElementById("returnTable").innerHTML = retur.map(r => `
                 <tr>
-                    <td>${escapeHTML(r.id)}</td>
-                    <td>${escapeHTML(r.customer)}</td>
-                    <td>${escapeHTML(r.barang)}</td>
-                    <td>${escapeHTML(r.alasan)}</td>
+                    <td>${r.nama || '-'}</td>
+                    <td>${r.kodeArtikel || '-'}</td>
+                    <td>${r.keluhan || '-'}</td>
                     <td>
-                        <select class="form-select"
-                            onchange="updateReturn('${r.id}',this.value)">
-                            ${statuses.map(s => `
-                                <option ${r.status === s ? "selected" : ""}>${s}</option>
-                            `).join("")}
+                        <select class="form-select" onchange="ubahStatusRetur('${r.id}', this.value)">
+                            <option value="Sedang Diproses" ${r.status==='Sedang Diproses'?'selected':''}>Sedang Diproses</option>
+                            <option value="Silakan antar produk ke toko" ${r.status==='Silakan antar produk ke toko'?'selected':''}>Silakan antar ke toko</option>
+                            <option value="Selesai" ${r.status==='Selesai'?'selected':''}>Selesai</option>
                         </select>
                     </td>
-                    <td>
-                        <button class="btn btn-sm btn-danger"
-                            onclick="deleteReturn('${r.id}')">
-                            Hapus
-                        </button>
-                    </td>
                 </tr>
-            `).join("") || `<tr><td colspan="6" class="text-center">Belum ada retur</td></tr>`;
-    }
+            `).join("") || `<tr><td colspan="4" class="text-center">Belum ada retur</td></tr>`;
 
-    function deleteReturn(id) {
-        if (confirm("Hapus pengajuan retur?")) {
-            returns = returns.filter(r => r.id !== id);
-            saveData();
-            renderAll();
+            // Update Dashboard
+            document.getElementById("totalTransaksi").textContent = trx.length;
+            document.getElementById("totalRetur").textContent = retur.length;
+            
+            const totalPendapatan = trx.reduce((sum, t) => sum + (Number(t.total) || 0), 0);
+            document.getElementById("totalPenjualan").textContent = rupiah(totalPendapatan);
+
+        } catch (error) {
+            console.error("Gagal load data:", error);
         }
     }
 
-    // DASHBOARD
-    let salesChart;
+    // Fungsi Ubah Status
+    window.ubahStatusTrx = async (id, status) => {
+        await updateDoc(doc(db, "transactions", id), { status: status });
+    };
+    
+    window.ubahStatusRetur = async (id, status) => {
+        await updateDoc(doc(db, "retur", id), { status: status });
+    };
 
-    function renderDashboard() {
-        const total = transactions.reduce((sum, t) =>
-            sum + (t.status !== "Dibatalkan" ? Number(t.total) : 0), 0);
-
-        document.getElementById("totalPenjualan").textContent = rupiah(total);
-        document.getElementById("totalTransaksi").textContent = transactions.length;
-        document.getElementById("totalRetur").textContent = returns.length;
-        document.getElementById("totalBarang").textContent = products.length;
-
-        document.getElementById("pendingCount").textContent =
-            transactions.filter(t => t.status === "Menunggu Pembayaran").length;
-
-        document.getElementById("processingCount").textContent =
-            transactions.filter(t => ["Diproses", "Dikirim"].includes(t.status)).length;
-
-        document.getElementById("completedCount").textContent =
-            transactions.filter(t => t.status === "Selesai").length;
-
-        const monthly = Array(12).fill(0);
-
-        transactions.forEach(t => {
-            if (t.status !== "Dibatalkan") {
-                const date = new Date(t.tanggal);
-                const month = isNaN(date.getTime()) ? new Date().getMonth() : date.getMonth();
-                monthly[month] += Number(t.total) || 0;
-            }
-        });
-
-        if (salesChart) salesChart.destroy();
-
-        salesChart = new Chart(document.getElementById("salesChart"), {
-            type: "bar",
-            data: {
-                labels: ["Jan","Feb","Mar","Apr","Mei","Jun","Jul","Agu","Sep","Okt","Nov","Des"],
-                datasets: [{
-                    label: "Penjualan",
-                    data: monthly,
-                    backgroundColor: "#24583b",
-                    borderRadius: 7
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    legend: {display: false}
-                },
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        ticks: {
-                            callback: value => "Rp" + value.toLocaleString("id-ID")
-                        }
-                    }
-                }
-            }
-        });
+    // Load data kalau udah login sebelumnya
+    if (sessionStorage.getItem("adminLogin") === "true") {
+        loadAllData();
     }
-
-    // MENCEGAH HTML INJECTION
-    function escapeHTML(value) {
-        return String(value ?? "").replace(/[&<>"']/g, char => ({
-            "&": "&amp;",
-            "<": "&lt;",
-            ">": "&gt;",
-            '"': "&quot;",
-            "'": "&#39;"
-        })[char]);
-    }
-
-    // REFRESH SEMUA DATA
-    function renderAll() {
-        renderProducts();
-        renderDiscounts();
-        renderTransactions();
-        renderReturns();
-        renderDashboard();
-    }
-
-    renderAll();
 </script>
 
 </body>
