@@ -1,11 +1,9 @@
-// Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
+// js/firebase.js
 
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+import { getFirestore } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+// Konfigurasi Firebase milik lu (sesuai yang ada di Firebase Console)
 const firebaseConfig = {
   apiKey: "AIzaSyCD81YlaJKctBvxnjVgnG1xdp-bdcPOfos",
   authDomain: "eigercustomer.firebaseapp.com",
@@ -16,6 +14,11 @@ const firebaseConfig = {
   measurementId: "G-2XB53Q08ZL"
 };
 
-// Initialize Firebase
+// Inisialisasi Firebase
 const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
+
+// Inisialisasi Database Firestore
+const db = getFirestore(app);
+
+// Export biar bisa dipakai di file JS lain (kayak produk.js, transaksi.js)
+export { db };
