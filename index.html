@@ -43,7 +43,6 @@
 
 <body>
 
-<!-- LOGIN ADMIN -->
 <div id="loginPage">
     <div class="login-card">
         <div class="login-logo">EIGER ADMIN</div>
@@ -63,7 +62,6 @@
     </div>
 </div>
 
-<!-- SIDEBAR -->
 <aside class="sidebar">
     <div class="brand">EIGER<span>.</span></div>
     <div class="nav-link active" onclick="showPage('dashboard',this)">▦ Dashboard</div>
@@ -75,7 +73,6 @@
     <div class="nav-link" onclick="logout()">⇥ Logout</div>
 </aside>
 
-<!-- MAIN -->
 <main class="main">
     <div class="topbar">
         <div>
@@ -85,7 +82,6 @@
         <div><span class="badge bg-success p-2">Administrator</span></div>
     </div>
 
-    <!-- DASHBOARD -->
     <section id="dashboard" class="content-section active">
         <div class="row g-3 mb-4">
             <div class="col-md-3 col-6">
@@ -137,7 +133,6 @@
         </div>
     </section>
 
-    <!-- TRANSAKSI -->
     <section id="transaksi" class="content-section">
         <div class="panel">
             <h5>Manajemen Status Transaksi</h5>
@@ -152,7 +147,6 @@
         </div>
     </section>
 
-    <!-- RETUR -->
     <section id="retur" class="content-section">
         <div class="panel">
             <h5>Manajemen Status Retur</h5>
@@ -167,7 +161,6 @@
         </div>
     </section>
 
-    <!-- BARANG -->
     <section id="barang" class="content-section">
         <div class="row g-3">
             <div class="col-lg-4">
@@ -175,7 +168,6 @@
                     <h5>Tambah Barang</h5>
                     <form id="productForm">
                         <input type="hidden" id="editId">
-                        
                         <div class="mb-3">
                             <label class="form-label">Nama Barang</label>
                             <input id="namaBarang" class="form-control" required>
@@ -194,12 +186,10 @@
                             <label class="form-label">Stok</label>
                             <input type="number" id="stok" class="form-control" min="0" required>
                         </div>
-                        
                         <div class="mb-3">
                             <label class="form-label">Foto Produk</label>
                             <input type="file" id="foto" accept="image/*" class="form-control" required>
                         </div>
-                        
                         <button class="btn btn-green w-100" id="saveProduct">SIMPAN BARANG</button>
                         <button type="button" class="btn btn-light w-100 mt-2" onclick="resetProductForm()">BATAL</button>
                     </form>
@@ -221,7 +211,6 @@
         </div>
     </section>
 
-    <!-- DISKON -->
     <section id="diskon" class="content-section">
         <div class="panel">
             <h5>Pengaturan Diskon Produk</h5>
@@ -238,13 +227,11 @@
     </section>
 </main>
 
-<!-- SCRIPT UTAMA -->
 <script type="module">
     import { db } from './js/firebase.js';
     import { uploadGambar } from './js/cloudinary.js';
     import { collection, addDoc, getDocs, deleteDoc, doc, updateDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
-    // LOGIN & NAVIGASI
     const loginPage = document.getElementById("loginPage");
     if (sessionStorage.getItem("adminLogin") === "true") {
         loginPage.style.display = "none";
@@ -264,12 +251,6 @@
         }
     });
 
-    // PAKAI window.logout BIAR BISA DIPANGGIL DARI HTML
-    window.logout = function() {
-        sessionStorage.removeItem("adminLogin");
-        location.reload();
-    };
-
     window.showPage = function(page, element) {
         document.querySelectorAll(".content-section").forEach(s => s.classList.remove("active"));
         document.getElementById(page).classList.add("active");
@@ -279,12 +260,10 @@
         document.getElementById("pageTitle").textContent = titles[page];
     };
 
-    // FORMAT RUPIAH
     function rupiah(value) {
         return new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR", maximumFractionDigits: 0 }).format(value || 0);
     }
 
-    // TAMBAH BARANG
     document.getElementById("productForm").addEventListener("submit", async function(e) {
         e.preventDefault();
         const file = document.getElementById("foto").files[0];
@@ -335,13 +314,11 @@
         loadAllData();
     };
 
-    // LOAD SEMUA DATA
     async function loadAllData() {
         try {
             const prodSnapshot = await getDocs(collection(db, "products"));
             const products = prodSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
 
-            // Tabel Produk
             document.getElementById("productTable").innerHTML = products.map(p => `
                 <tr>
                     <td><img class="product-img" src="${p.image_url}" onerror="this.style.display='none'"> ${p.nama}</td>
@@ -353,7 +330,6 @@
             `).join("") || `<tr><td colspan="5" class="text-center">Belum ada barang</td></tr>`;
             document.getElementById("totalBarang").textContent = products.length;
 
-            // Tabel Diskon
             document.getElementById("discountTable").innerHTML = products.map(p => `
                 <tr>
                     <td>${p.nama}</td>
@@ -364,7 +340,6 @@
                 </tr>
             `).join("");
 
-            // Tabel Transaksi
             const trxSnapshot = await getDocs(collection(db, "transactions"));
             const trx = trxSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
             document.getElementById("transactionTable").innerHTML = trx.map(t => `
@@ -384,7 +359,6 @@
                 </tr>
             `).join("") || `<tr><td colspan="6" class="text-center">Belum ada transaksi</td></tr>`;
 
-            // Tabel Retur
             const returSnapshot = await getDocs(collection(db, "retur"));
             const retur = returSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
             document.getElementById("returnTable").innerHTML = retur.map(r => `
@@ -402,7 +376,6 @@
                 </tr>
             `).join("") || `<tr><td colspan="4" class="text-center">Belum ada retur</td></tr>`;
 
-            // Dashboard
             document.getElementById("totalTransaksi").textContent = trx.length;
             document.getElementById("totalRetur").textContent = retur.length;
             
@@ -420,6 +393,14 @@
     
     window.ubahStatusRetur = async (id, status) => {
         await updateDoc(doc(db, "retur", id), { status: status });
+    };
+</script>
+
+<script>
+    window.logout = function() {
+        sessionStorage.removeItem("adminLogin");
+        localStorage.removeItem("adminLogin");
+        window.location.href = "index.html";
     };
 </script>
 
