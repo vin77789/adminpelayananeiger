@@ -11,7 +11,7 @@
     <style>
         * { box-sizing: border-box; }
         body { margin: 0; background: #f4f6f4; font-family: Arial, sans-serif; color: #26352c; }
-        .sidebar { width: 250px; height: 100vh; position: fixed; background: #173d2b; color: white; padding: 25px 15px; }
+        .sidebar { width: 250px; height: 100vh; position: fixed; background: #173d2b; color: white; padding: 25px 15px; z-index: 1000; }
         .brand { font-size: 25px; font-weight: bold; text-align: center; margin-bottom: 35px; letter-spacing: 2px; }
         .brand span { color: #c9dc42; }
         .nav-link { color: #dce7df; padding: 13px 15px; margin-bottom: 7px; border-radius: 8px; cursor: pointer; }
@@ -144,7 +144,7 @@
             <div class="table-responsive">
                 <table class="table table-hover">
                     <thead>
-                        <tr><th>ID Transaksi</th><th>Customer</th><th>Tanggal</th><th>Total</th><th>Status</th><th>Aksi</th></tr>
+                        <tr><th>ID Transaksi</th><th>Customer</th><th>Produk</th><th>Alamat</th><th>Total</th><th>Status</th></tr>
                     </thead>
                     <tbody id="transactionTable"></tbody>
                 </table>
@@ -159,7 +159,7 @@
             <div class="table-responsive">
                 <table class="table">
                     <thead>
-                        <tr><th>ID Retur</th><th>Customer</th><th>Barang</th><th>Alasan</th><th>Status</th><th>Aksi</th></tr>
+                        <tr><th>Nama</th><th>Kode Artikel</th><th>Keluhan</th><th>Status</th></tr>
                     </thead>
                     <tbody id="returnTable"></tbody>
                 </table>
@@ -174,7 +174,6 @@
                 <div class="panel">
                     <h5>Tambah Barang</h5>
                     <form id="productForm">
-                        <!-- Input hidden untuk handle edit nanti -->
                         <input type="hidden" id="editId">
                         
                         <div class="mb-3">
@@ -196,7 +195,6 @@
                             <input type="number" id="stok" class="form-control" min="0" required>
                         </div>
                         
-                        <!-- INPUT FILE FOTO (Bukan URL lagi) -->
                         <div class="mb-3">
                             <label class="form-label">Foto Produk</label>
                             <input type="file" id="foto" accept="image/*" class="form-control" required>
@@ -240,18 +238,18 @@
     </section>
 </main>
 
-<!-- ==========================================
-     SCRIPT UTAMA (LOGIN, NAVIGASI, FIREBASE)
-     ========================================== -->
+<!-- SCRIPT UTAMA -->
 <script type="module">
-    // 1. IMPORT FIREBASE & CLOUDINARY
     import { db } from './js/firebase.js';
     import { uploadGambar } from './js/cloudinary.js';
     import { collection, addDoc, getDocs, deleteDoc, doc, updateDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
-    // 2. LOGIKA LOGIN & NAVIGASI
+    // LOGIN & NAVIGASI
     const loginPage = document.getElementById("loginPage");
-    if (sessionStorage.getItem("adminLogin") === "true") loginPage.style.display = "none";
+    if (sessionStorage.getItem("adminLogin") === "true") {
+        loginPage.style.display = "none";
+        loadAllData();
+    }
 
     document.getElementById("loginForm").addEventListener("submit", function(e) {
         e.preventDefault();
@@ -260,16 +258,17 @@
         if (user === "admin" && pass === "admin123") {
             sessionStorage.setItem("adminLogin", "true");
             loginPage.style.display = "none";
-            loadAllData(); // Load data setelah login
+            loadAllData();
         } else {
             alert("Username atau password salah!");
         }
     });
 
-    function logout() {
+    // PAKAI window.logout BIAR BISA DIPANGGIL DARI HTML
+    window.logout = function() {
         sessionStorage.removeItem("adminLogin");
         location.reload();
-    }
+    };
 
     window.showPage = function(page, element) {
         document.querySelectorAll(".content-section").forEach(s => s.classList.remove("active"));
@@ -280,12 +279,12 @@
         document.getElementById("pageTitle").textContent = titles[page];
     };
 
-    // 3. FORMAT RUPIAH
+    // FORMAT RUPIAH
     function rupiah(value) {
         return new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR", maximumFractionDigits: 0 }).format(value || 0);
     }
 
-    // 4. FUNGSI TAMBAH BARANG (Upload Cloudinary + Simpan Firestore)
+    // TAMBAH BARANG
     document.getElementById("productForm").addEventListener("submit", async function(e) {
         e.preventDefault();
         const file = document.getElementById("foto").files[0];
@@ -336,14 +335,13 @@
         loadAllData();
     };
 
-    // 5. LOAD SEMUA DATA DARI FIRESTORE
+    // LOAD SEMUA DATA
     async function loadAllData() {
         try {
-            // Load Produk
             const prodSnapshot = await getDocs(collection(db, "products"));
             const products = prodSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
 
-            // Render Tabel Produk
+            // Tabel Produk
             document.getElementById("productTable").innerHTML = products.map(p => `
                 <tr>
                     <td><img class="product-img" src="${p.image_url}" onerror="this.style.display='none'"> ${p.nama}</td>
@@ -355,7 +353,7 @@
             `).join("") || `<tr><td colspan="5" class="text-center">Belum ada barang</td></tr>`;
             document.getElementById("totalBarang").textContent = products.length;
 
-            // Render Tabel Diskon
+            // Tabel Diskon
             document.getElementById("discountTable").innerHTML = products.map(p => `
                 <tr>
                     <td>${p.nama}</td>
@@ -366,14 +364,15 @@
                 </tr>
             `).join("");
 
-            // Load Transaksi
+            // Tabel Transaksi
             const trxSnapshot = await getDocs(collection(db, "transactions"));
             const trx = trxSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
             document.getElementById("transactionTable").innerHTML = trx.map(t => `
                 <tr>
                     <td>${t.id.substring(0,6)}</td>
                     <td>${t.customer || '-'}</td>
-                    <td>${t.tanggal || '-'}</td>
+                    <td>${t.produk || '-'}</td>
+                    <td>${t.alamat || '-'}</td>
                     <td>${rupiah(t.total)}</td>
                     <td>
                         <select class="form-select" onchange="ubahStatusTrx('${t.id}', this.value)">
@@ -383,9 +382,9 @@
                         </select>
                     </td>
                 </tr>
-            `).join("") || `<tr><td colspan="5" class="text-center">Belum ada transaksi</td></tr>`;
+            `).join("") || `<tr><td colspan="6" class="text-center">Belum ada transaksi</td></tr>`;
 
-            // Load Retur
+            // Tabel Retur
             const returSnapshot = await getDocs(collection(db, "retur"));
             const retur = returSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
             document.getElementById("returnTable").innerHTML = retur.map(r => `
@@ -403,7 +402,7 @@
                 </tr>
             `).join("") || `<tr><td colspan="4" class="text-center">Belum ada retur</td></tr>`;
 
-            // Update Dashboard
+            // Dashboard
             document.getElementById("totalTransaksi").textContent = trx.length;
             document.getElementById("totalRetur").textContent = retur.length;
             
@@ -415,7 +414,6 @@
         }
     }
 
-    // Fungsi Ubah Status
     window.ubahStatusTrx = async (id, status) => {
         await updateDoc(doc(db, "transactions", id), { status: status });
     };
@@ -423,11 +421,6 @@
     window.ubahStatusRetur = async (id, status) => {
         await updateDoc(doc(db, "retur", id), { status: status });
     };
-
-    // Load data kalau udah login sebelumnya
-    if (sessionStorage.getItem("adminLogin") === "true") {
-        loadAllData();
-    }
 </script>
 
 </body>
