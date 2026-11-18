@@ -43,20 +43,21 @@
 
 <body>
 
+<!-- FORM LOGIN (Menggunakan Email) -->
 <div id="loginPage">
     <div class="login-card">
         <div class="login-logo">EIGER ADMIN</div>
         <h5 class="text-center mb-4">Login Administrator</h5>
         <form id="loginForm">
             <div class="mb-3">
-                <label class="form-label">Username</label>
-                <input type="text" id="username" class="form-control" required>
+                <label class="form-label">Email Admin</label>
+                <input type="email" id="email" class="form-control" required>
             </div>
             <div class="mb-3">
                 <label class="form-label">Password</label>
                 <input type="password" id="password" class="form-control" required>
             </div>
-            <button class="btn btn-green w-100 py-2">LOGIN</button>
+            <button type="submit" class="btn btn-green w-100 py-2">LOGIN</button>
         </form>
         <p class="text-center text-secondary small mt-3">Sistem Informasi Manajemen EIGER</p>
     </div>
@@ -227,29 +228,50 @@
     </section>
 </main>
 
+<!-- SCRIPT UTAMA DENGAN FIREBASE AUTH -->
 <script type="module">
-    import { db } from './js/firebase.js';
+    import { db, auth } from './js/firebase.js'; 
     import { uploadGambar } from './js/cloudinary.js';
     import { collection, addDoc, getDocs, deleteDoc, doc, updateDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+    import { signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 
     const loginPage = document.getElementById("loginPage");
-    if (sessionStorage.getItem("adminLogin") === "true") {
-        loginPage.style.display = "none";
-        loadAllData();
-    }
 
-    document.getElementById("loginForm").addEventListener("submit", function(e) {
-        e.preventDefault();
-        const user = document.getElementById("username").value;
-        const pass = document.getElementById("password").value;
-        if (user === "admin" && pass === "admin123") {
-            sessionStorage.setItem("adminLogin", "true");
+    // 1. Pantau Status Login
+    onAuthStateChanged(auth, (user) => {
+        if (user) {
+            // Jika berhasil login
             loginPage.style.display = "none";
-            loadAllData();
+            loadAllData(); 
         } else {
-            alert("Username atau password salah!");
+            // Jika belum login / sudah logout
+            loginPage.style.display = "flex";
         }
     });
+
+    // 2. Logika Form Login
+    document.getElementById("loginForm").addEventListener("submit", async function(e) {
+        e.preventDefault();
+        const email = document.getElementById("email").value;
+        const pass = document.getElementById("password").value;
+        
+        try {
+            await signInWithEmailAndPassword(auth, email, pass);
+        } catch (error) {
+            alert("Login Gagal: Pastikan Email dan Password benar.\n" + error.message);
+        }
+    });
+
+    // 3. Logika Logout
+    window.logout = async function() {
+        try {
+            await signOut(auth);
+        } catch (error) {
+            console.error("Gagal logout:", error);
+        }
+    };
+
+    // --- FUNGSI-FUNGSI ASLI KAMU DI BAWAH INI ---
 
     window.showPage = function(page, element) {
         document.querySelectorAll(".content-section").forEach(s => s.classList.remove("active"));
@@ -314,6 +336,15 @@
         loadAllData();
     };
 
+    window.ubahStatusTrx = async (id, status) => {
+        await updateDoc(doc(db, "transactions", id), { status: status });
+    };
+    
+    window.ubahStatusRetur = async (id, status) => {
+        await updateDoc(doc(db, "retur", id), { status: status });
+    };
+
+    // 4. Fungsi Load Data
     async function loadAllData() {
         try {
             const prodSnapshot = await getDocs(collection(db, "products"));
@@ -386,22 +417,6 @@
             console.error("Gagal load data:", error);
         }
     }
-
-    window.ubahStatusTrx = async (id, status) => {
-        await updateDoc(doc(db, "transactions", id), { status: status });
-    };
-    
-    window.ubahStatusRetur = async (id, status) => {
-        await updateDoc(doc(db, "retur", id), { status: status });
-    };
-</script>
-
-<script>
-    window.logout = function() {
-        sessionStorage.removeItem("adminLogin");
-        localStorage.removeItem("adminLogin");
-        window.location.href = "index.html";
-    };
 </script>
 
 </body>
